@@ -77,6 +77,7 @@
     double operand1 = [_savedOperand doubleValue];
     double operand2 = [_calculationString doubleValue];
     double total = 0;
+    boolean_t error = false;
     switch (_currentAction) {
         case multiply: {
             total = operand1 * operand2;
@@ -88,6 +89,12 @@
         case add:
             total = operand1 + operand2;
             break;
+        case mod:
+            if (operand2 == 0) {
+                error = true;
+            } else {
+                total = (int) operand1 % (int) operand2;
+            }
         default:
             break;
     }
@@ -95,6 +102,9 @@
         _calculationString = [NSString stringWithFormat:@"%.02f", total];
     } else {
         _calculationString = [NSString stringWithFormat:@"%d", (int)total];
+    }
+    if (error) {
+        _calculationString = @"Error";
     }
 }
 - (BOOL)recognizeAction: (int)tag {

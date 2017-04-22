@@ -31,6 +31,12 @@
 - (void)updatecalculationView {
     [_calculationView setText:[_Cbrain calculationString]];
 }
+- (IBAction)modPressed:(id)sender {
+    UIButton *pressedButton = (UIButton *)sender;
+    if ([_Cbrain recognizeAction:(int)pressedButton.tag]) {
+       [self updatecalculationView];
+    }
+}
 
 - (IBAction)numberPressed:(id)sender {
     UIButton *pressedButton = (UIButton *)sender;
